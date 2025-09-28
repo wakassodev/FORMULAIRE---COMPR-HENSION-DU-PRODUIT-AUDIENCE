@@ -91,7 +91,7 @@ Identité visuelle: ${formData.hasVisualIdentity ? 'Oui' : 'Non'}
 -----------------
 Style visuel: ${getLabels(formData.visualStyle, styleMapping).join(', ')}
 Adapté pour: ${getLabels(formData.adaptedFor, adaptedMapping).join(', ')}
-Inspirations: ${formData.inspirations || 'Aucune'}
+Inspirations: ${formData.hasInspirations ? `Oui - ${formData.inspirations}` : 'Non'}
 
 Date: ${new Date().toLocaleDateString('fr-FR')}
   `.trim();
@@ -252,12 +252,14 @@ Date: ${new Date().toLocaleDateString('fr-FR')}
             </div>
           )}
           
-          {formData.inspirations && (
-            <div>
-              <span className="text-muted-foreground caption">Inspirations:</span>
-              <p className="mt-1">{formData.inspirations}</p>
+          <div>
+            <span className="text-muted-foreground caption">Inspirations:</span>
+            <p className="mt-1">
+              {formData.hasInspirations
+                ? `Oui - ${formData.inspirations || 'Non précisé'}`
+                : 'Non'}
+            </p>
             </div>
-          )}
         </div>
       </Card>
 

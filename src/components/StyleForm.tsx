@@ -1,6 +1,7 @@
 import { Label } from './ui/label';
 import { Checkbox } from './ui/checkbox';
 import { Textarea } from './ui/textarea';
+import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { FormData } from '../App';
 
 interface StyleFormProps {
@@ -74,34 +75,25 @@ export function StyleForm({ formData, updateFormData }: StyleFormProps) {
         <Label htmlFor="inspirations">
           12. Y a-t-il des marques ou pages Facebook/Instagram dont le style visuel vous inspire ?
         </Label>
-        <div className="mt-2 space-y-3">
+        <RadioGroup
+          value={formData.hasInspirations ? 'yes' : 'no'}
+          onValueChange={(value) => {
+            const hasInspirations = value === 'yes';
+            updateFormData({ hasInspirations, inspirations: hasInspirations ? formData.inspirations : '' });
+          }}
+          className="mt-2 space-y-3"
+        >
           <div className="flex items-center space-x-2">
-            <Checkbox
-              id="has-inspirations"
-              checked={formData.inspirations !== ''}
-              onCheckedChange={(checked) => {
-                if (!checked) {
-                  updateFormData({ inspirations: '' });
-                }
-              }}
-            />
-            <Label htmlFor="has-inspirations">Oui</Label>
+            <RadioGroupItem value="yes" id="inspirations-yes" />
+            <Label htmlFor="inspirations-yes">Oui</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <Checkbox
-              id="no-inspirations"
-              checked={formData.inspirations === ''}
-              onCheckedChange={(checked) => {
-                if (checked) {
-                  updateFormData({ inspirations: '' });
-                }
-              }}
-            />
-            <Label htmlFor="no-inspirations">Non</Label>
+            <RadioGroupItem value="no" id="inspirations-no" />
+            <Label htmlFor="inspirations-no">Non</Label>
           </div>
-        </div>
-        
-        {formData.inspirations !== '' && (
+        </RadioGroup>
+
+        {formData.hasInspirations && (
           <div className="mt-4">
             <Textarea
               id="inspirations"
@@ -115,4 +107,4 @@ export function StyleForm({ formData, updateFormData }: StyleFormProps) {
       </div>
     </div>
   );
-}
+}``

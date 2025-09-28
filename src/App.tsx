@@ -27,6 +27,7 @@ export interface FormData {
   visualStyle: string[];
   adaptedFor: string[];
   inspirations: string;
+  hasInspirations: boolean;
 }
 
 export default function App() {
@@ -45,6 +46,7 @@ export default function App() {
     visualStyle: [],
     adaptedFor: [],
     inspirations: '',
+    hasInspirations: false,
   });
 
   const updateFormData = (updates: Partial<FormData>) => {
